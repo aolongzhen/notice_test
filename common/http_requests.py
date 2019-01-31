@@ -20,13 +20,10 @@ class RequestsClass():
 
 #如下是测试代码
 if __name__ == '__main__':
-        url = 'http://test-audio-book-admin.haochang.tv/admin/statistics'
-        param = {"date":"20190114"}
-        headers = {"authorize-token": "7|1546836421|6d2c246a0f9864511427bad2a2daa253",
-                   "Origin": "http://test-audio-book-admin.haochang.tv",
-                   "Referer": "http://test-audio-book-admin.haochang.tv",
-                   "X - Requested - With": "XMLHttpRequest"}
-        a = RequestsClass(url=url, param=param, headers=headers).http_requests(method='get')
+        url = 'http://new-test.ck.haochang.tv/admin/notices/system/edit'
+        param = {"title":"title","intro":"intro","content":"content","display_in_con":0,"display_in_list":0,"type_id":1,"picture_url":"","publish_time":""}
+        headers = {"cookie":"PHPSESSID=aggkm4rhdn9club9d97c964nb7","X-HTTP-Method-Override":"POST","Referer": "http://new-test.ck.haochang.tv/admin/notices/system/edit"}
+        a = RequestsClass(url=url, param=param, headers=headers).http_requests(method='post')
         print(a)
 
 

@@ -1,13 +1,13 @@
 #日志系统
 import logging
 
+from common import project_path
 from common.read_config import ReadConfig
-from config import project_path
 
 
 class Mylog:
     #获取配置文件路径
-    logconfig_path=project_path.log_path
+    logconfig_path= project_path.log_path
 
 
     #获取配置log配置信息
@@ -17,10 +17,10 @@ class Mylog:
 
 
     #获取生成日志报告目录
-    test_report_path=project_path.test_report_path
+    test_report_path= project_path.test_report_path
 
     # msg_level：容器log级别 level:日志输出级别 Handler:输出渠道1：控制台 2：文件 3：控制台和文件都有
-    def my_log(self,msg,msg_level,Handler,log_name='auto_cases',level= conf_level,log_file_path=test_report_path+'\\test_log.txt',format=format):
+    def my_log(self,msg,msg_level,Handler,log_name='auto_cases',level= conf_level,log_file_path='test_log.txt',format=format):
         #创建日志容器
         logger=logging.Logger(log_name,msg_level)
 
