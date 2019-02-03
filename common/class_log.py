@@ -1,8 +1,8 @@
 #日志系统
 import logging
 
-from common import project_path
 from common.read_config import ReadConfig
+from conf import project_path
 
 
 class Mylog:

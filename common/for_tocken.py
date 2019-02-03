@@ -20,7 +20,8 @@ class ForTocken():
             req_data = http_requests.RequestsClass(url=url, param=param, headers=headers).http_requests(method='post')
             tocken = req_data.json()['authorizeToken']
             roomid = req_data.json()['data']['room']['roomId']
-            return [tocken,roomid]
+            userid=req_data.json()['data']['user']['userId']
+            return [tocken,roomid,userid]
 
         def toc_base(self,tocken):
             tocken= str(base64.b64encode(bytes(tocken, encoding = "utf8")), encoding = "utf-8")
@@ -35,9 +36,11 @@ class ForTocken():
                 if req_data.json()['errno'] =='0':
                     tocken = self.toc_base(data[self.telephone][0])
                     roomid = data[self.telephone][1]
+                    userid = data[self.telephone][2]
                 elif req_data.json()['errno'] == '100002':
                     log_in=self.again_log()
                     tocken = self.toc_base(log_in[0])
+                    userid = log_in[2]
                     roomid = log_in[1]
                     data[self.telephone] = log_in
                     read_txt.DoTxt('../data/log_tocken.txt').write_txt(str(data))
@@ -46,12 +49,13 @@ class ForTocken():
             else:
                 re_tocken=self.again_log()
                 tocken=self.toc_base(re_tocken[0])
-                roomid=re_tocken[1]
+                roomid = re_tocken[1]
+                userid = re_tocken[2]
                 data[self.telephone]=re_tocken
                 read_txt.DoTxt('../data/log_tocken.txt').write_txt(str(data))
-            return [tocken,roomid]
+            return [tocken,roomid,userid]
 
 
 if __name__ == '__main__':
-    a= ForTocken('18600000005').return_tocken()
+    a= ForTocken('18600000001').return_tocken()
     print (a)

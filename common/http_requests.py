@@ -20,10 +20,8 @@ class RequestsClass():
 
 #如下是测试代码
 if __name__ == '__main__':
-        url = 'http://new-test.ck.haochang.tv/admin/notices/system/edit'
-        param = {"title":"title","intro":"intro","content":"content","display_in_con":0,"display_in_list":0,"type_id":1,"picture_url":"","publish_time":""}
-        headers = {"cookie":"PHPSESSID=aggkm4rhdn9club9d97c964nb7","X-HTTP-Method-Override":"POST","Referer": "http://new-test.ck.haochang.tv/admin/notices/system/edit"}
-        a = RequestsClass(url=url, param=param, headers=headers).http_requests(method='post')
-        print(a)
-
-
+        headers = {'x-api-test': 'true', 'authorize-token': 'MTE0OTY4MDcsMTU0ODkyOTQwNyw4NDFmMmQ4MWQzMjViOWUyODg1NzQ1MmZiNjhmZWMzNQ==', 'app-version': '1.7.0'}
+        url = 'https://new-test-ck.haochang.tv/api/notice'
+        notice = RequestsClass(url=url, param={"lastNotifyTime": str('1548996335000')},
+                                             headers=headers).http_requests(method='get')
+        print (notice.json())

@@ -1,6 +1,6 @@
 from common import http_requests
 
-from common import class_log
+#from common import class_log
 
 
 #前提条件，调用登录类，使用手机号登录（手机号写死）
@@ -8,12 +8,11 @@ from common import class_log
 #第二部验证通知接口，通知中能找到添加的对应的通知ID，则通过
 
 
-class Check_point():
+class CheckPoint():
 
-    def __init__(self,notice_id,send_time,telphone,tocken):
+    def __init__(self,notice_id,send_time,tocken):
         self.notice_id=notice_id
         self.send_time=send_time
-        self.telphone=telphone
         self.tocken=tocken
 
 
@@ -23,13 +22,15 @@ class Check_point():
         url='https://new-test-ck.haochang.tv/api/user/notification'
         headers={'x-api-test': 'true','authorize-token': self.tocken,'app-version': '1.7.0'}
         notification= http_requests.RequestsClass(url=url, param={"lastNotifyTime":self.send_time}, headers=headers).http_requests(method='get')
-        class_log.Mylog().debug(msg="-----------请求提醒灯，验证noticeNum-----------", Handler=3)
+        #class_log.Mylog().debug(msg="-----------请求提醒灯，验证noticeNum-----------", Handler=3)
         msg='提醒灯数量:'+notification.json()['data']['noticeNum']
-        class_log.Mylog().debug(msg=msg, Handler=3)
+        #class_log.Mylog().debug(msg=msg, Handler=3)
         if eval(notification.json()['data']['noticeNum']) ==0:
-            class_log.Mylog().debug(msg="-----------通知提醒灯错误-----------", Handler=3)
+            print ('通知提醒灯错误')
+            #class_log.Mylog().debug(msg="-----------通知提醒灯错误-----------", Handler=3)
         elif eval(notification.json()['data']['noticeNum']) >0 :
-            class_log.Mylog().debug(msg="-----------通知提醒灯测试通过-----------", Handler=3)
+            print ('通知提醒灯测试通过')
+            #class_log.Mylog().debug(msg="-----------通知提醒灯测试通过-----------", Handler=3)
         else:
             print ('程序错误')
 
@@ -40,11 +41,13 @@ class Check_point():
         notices=notice.json()['data']['list']
         for i in notices:
             if i['noticeId'] == str(self.notice_id):
-                class_log.Mylog().debug(msg="-----------系统通知测试通过--------------", Handler=3)
+                #class_log.Mylog().debug(msg="-----------系统通知测试通过--------------", Handler=3)
                 notice = self.notice_id
+                print('系统通知测试通过')
                 break
         if notice is notice != self.notice_id:
-            class_log.Mylog().debug(msg="-----------系统通知测试不通过-------------", Handler=3)
-            class_log.Mylog().debug(msg=notices, Handler=3)
+            #class_log.Mylog().debug(msg="-----------系统通知测试不通过-------------", Handler=3)
+            #class_log.Mylog().debug(msg=notices, Handler=3)
+            print ('系统通知测试不通过')
 
 
