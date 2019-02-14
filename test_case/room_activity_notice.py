@@ -1,6 +1,6 @@
 import datetime
 import time
-from common import for_tocken
+from common import for_api_tocken
 from common import http_requests
 from common import class_mysql
 from common.read_config import ReadConfig
@@ -43,7 +43,7 @@ print (a)
 #进入房间
 config = ReadConfig(filepath='../conf/db_con.conf').read_config(section='DATABASE', option='config')
 telphone='18600000001'
-tocken= for_tocken.ForTocken(telphone).return_tocken()
+tocken= for_api_tocken.ForTocken(telphone).return_tocken()
 print (tocken[2])
 headers={'x-api-test': 'true','authorize-token': tocken[0],'app-version': '1.7.0'}
 url='https://new-test-ck.haochang.tv/api/room/members'

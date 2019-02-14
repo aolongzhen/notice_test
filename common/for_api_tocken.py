@@ -2,9 +2,9 @@
 #取文件中tocken使用，测试请求，如果请求成功则返回tocken。如果请求报错（tocken错误）则重新登录生成tocken 并更新文件内容
 
 import base64
-from common import http_requests
-from common import read_txt
+from common import http_requests,read_txt
 
+from conf import  project_path
 
 class ForTocken():
         def __init__(self,telephone):
@@ -28,7 +28,7 @@ class ForTocken():
             return tocken
 
         def return_tocken(self):
-            data=eval(read_txt.DoTxt('../data/log_tocken.txt').read_txt())
+            data=eval(read_txt.DoTxt(project_path.log_data).read_txt())
             if self.telephone in data.keys():
                 headers = {'x-api-test': 'true','authorize-token': self.toc_base(data[self.telephone][0])}
                 url='https://new-test-ck.haochang.tv/api/accompany/db'
@@ -43,7 +43,7 @@ class ForTocken():
                     userid = log_in[2]
                     roomid = log_in[1]
                     data[self.telephone] = log_in
-                    read_txt.DoTxt('../data/log_tocken.txt').write_txt(str(data))
+                    read_txt.DoTxt(project_path.log_data).write_txt(str(data))
                 else:
                     print('接口报错了')
             else:
@@ -52,7 +52,7 @@ class ForTocken():
                 roomid = re_tocken[1]
                 userid = re_tocken[2]
                 data[self.telephone]=re_tocken
-                read_txt.DoTxt('../data/log_tocken.txt').write_txt(str(data))
+                read_txt.DoTxt(project_path.log_data).write_txt(str(data))
             return [tocken,roomid,userid]
 
 

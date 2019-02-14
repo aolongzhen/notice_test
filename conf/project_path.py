@@ -19,7 +19,6 @@ http_path = os.path.join(project_path,'conf','http.conf')
 
 #log配置文件路径
 log_path = os.path.join(project_path,'conf','log_config.conf')
-print (log_path)
 
 #sign配置文件路径
 sign_path = os.path.join(project_path,'conf','sign.conf')
@@ -29,6 +28,18 @@ test_report_path = os.path.join(project_path,'report')
 #logfile文件夹路径
 log_file = os.path.join(project_path,'report')
 
+
+#notice 配置文件
+
+notice_file=os.path.join(project_path,'conf','notice.conf')
+
+#执行日志文件
+
+test_log=os.path.join(project_path,'test_case','test_log.txt')
+
+#登录数据文件
+
+log_data=os.path.join(project_path,'data','log_tocken.txt')
 
 
 if __name__ == '__main__':

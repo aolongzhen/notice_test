@@ -1,28 +1,25 @@
+#后台发送官方通&发布通知
+
+from common import  read_config,http_requests,log_management,do_redis
+from conf import project_path
 import time
 
-from common import http_requests
+#调用后台登录获得session
+session =log_management.session
 
-from common import class_log, read_config
-
-#验证官方通知
-class_log.Mylog().debug(msg="-----------验证官方通知------------", Handler=3)
-
-#请求后台管理接口生成通知
+t=int(round(time.time() * 1000))
 #添加通知
-send_time=int(round(time.time() * 1000))
-
-add_url = read_config.ReadConfig(filepath='notice.conf').read_config(section='SYS_NOTICE', option='add_url')
-param = read_config.ReadConfig(filepath='notice.conf').read_config(section='SYS_NOTICE', option='param')
-headers = read_config.ReadConfig(filepath='notice.conf').read_config(section='SYS_NOTICE', option='header')
-result1 = http_requests.RequestsClass(url=add_url, param=eval(param), headers=eval(headers)).http_requests(method='post')
-class_log.Mylog().debug(msg="-----------添加通知------------", Handler=3)
+readconfig=read_config.ReadConfig(filepath=project_path.notice_file)
+add_url = readconfig.read_config(section='SYS_NOTICE', option='add_url')
+param = readconfig.read_config(section='SYS_NOTICE', option='param')
+base_header= readconfig.read_config(section='SYS_NOTICE', option='header')
+headers=dict(eval(base_header),**session)
+result1 = http_requests.RequestsClass(url=add_url, param=eval(param), headers=headers).http_requests(method='post')
 
 #发布通知
-publish_url = read_config.ReadConfig(filepath='notice.conf').read_config(section='SYS_NOTICE', option='publish_url')
+publish_url = readconfig.read_config(section='SYS_NOTICE', option='publish_url')
 notice_id=result1.json()['sys_notice_id']
-a = http_requests.RequestsClass(url=publish_url, param=result1.json(), headers=eval(headers)).http_requests(method='post')
-class_log.Mylog().debug(msg="-----------发布通知-----------", Handler=3)
+a = http_requests.RequestsClass(url=publish_url, param=result1.json(), headers=headers).http_requests(method='post')
 
-#缺少redis操作，删除提醒灯
-
-
+#redis操作，删除对应用户ID：11373864提醒灯
+#do_redis.DoRedis('user:notification:11373864').del_key()
