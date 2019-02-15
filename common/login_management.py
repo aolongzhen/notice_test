@@ -1,6 +1,4 @@
 #1.登录后台生成session
-
-
 from common import http_requests
 
 url='http://new-test.ck.haochang.tv/admin/login'

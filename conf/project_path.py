@@ -42,5 +42,12 @@ test_log=os.path.join(project_path,'test_case','test_log.txt')
 log_data=os.path.join(project_path,'data','log_tocken.txt')
 
 
+#redis配置文件路径
+redis_conf=os.path.join(project_path,'conf','redis.conf')
+
+
+#系统日志
+sys_log = os.path.join(project_path,'log\\')
+
 if __name__ == '__main__':
     print (os.path.split(os.path.realpath(__file__))[0])
